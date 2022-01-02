@@ -1,6 +1,6 @@
 import React from "react";
 
-const Tab = ({ setFilter, tasks, setTasksToShow }) => {
+const Tab = ({ filter, setFilter, tasks, setTasksToShow }) => {
   const showActiveTasks = () => {
     const activeTasks = tasks.filter((task) => task.active === true);
     setTasksToShow(activeTasks);
@@ -21,7 +21,7 @@ const Tab = ({ setFilter, tasks, setTasksToShow }) => {
       <ul className="nav nav-tabs">
         <li className="nav-item">
           <button
-            className="nav-link active"
+            className={"nav-link " + (filter === "ALL" && "active")}
             aria-current="page"
             onClick={showAllTasks}
           >
@@ -29,12 +29,18 @@ const Tab = ({ setFilter, tasks, setTasksToShow }) => {
           </button>
         </li>
         <li className="nav-item">
-          <button className="nav-link" onClick={showActiveTasks}>
+          <button
+            className={"nav-link " + (filter === "ACTIVE" && "active")}
+            onClick={showActiveTasks}
+          >
             Active
           </button>
         </li>
         <li className="nav-item">
-          <button className="nav-link" onClick={showCompletedTasks}>
+          <button
+            className={"nav-link " + (filter === "COMPLETED" && "active")}
+            onClick={showCompletedTasks}
+          >
             Completed
           </button>
         </li>

@@ -36,7 +36,11 @@ const List = ({ tasks, setTasksToShow, tasksToShow, filter, setTasks }) => {
           >
             <p className={task.active ? "" : "text-decoration-line-through"}>
               {task.content}
+              <span> // {task.date}</span>
+              <span> // {task.priority}</span>
+              <span> // {task.category}</span>
             </p>
+
             <div>
               <button
                 className="btn btn-sm btn-outline-success"
