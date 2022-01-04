@@ -1,4 +1,14 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+
+// Styled Components
+import {
+  ButtonDelete,
+  InputRadio,
+  ListGroup,
+  ListGroupItem,
+  ListHeader,
+} from "./styles/StyledList";
+
 const List = ({ tasks, setTasksToShow, tasksToShow, filter, setTasks }) => {
   const completeTask = (indexArray) => {
     const newTodos = [...tasks];
@@ -27,39 +37,36 @@ const List = ({ tasks, setTasksToShow, tasksToShow, filter, setTasks }) => {
   }, [tasks, filter]);
 
   return (
-    <ul className="list-group">
+    <ListGroup>
+      <ListHeader>
+        <span>Description</span>
+        <span>Deadline</span>
+        <span>Category</span>
+        <span>Priority</span>
+      </ListHeader>
       {tasksToShow.map((task, index) => {
         return (
-          <li
+          <ListGroupItem
+            active={task.active}
             key={task.id}
-            className="list-group-item d-flex justify-content-between align-items-center"
+            onClick={() => completeTask(index)}
           >
-            <p className={task.active ? "" : "text-decoration-line-through"}>
-              {task.content}
-              <span> // {task.date}</span>
-              <span> // {task.priority}</span>
-              <span> // {task.category}</span>
-            </p>
+            <InputRadio active={task.active} />
 
-            <div>
-              <button
-                className="btn btn-sm btn-outline-success"
-                onClick={() => completeTask(index)}
-              >
-                ✔
-              </button>
-              <button
-                className="btn btn-sm btn-outline-danger"
-                disabled={task.active}
-                onClick={() => deleteTask(task.id)}
-              >
-                ❌
-              </button>
-            </div>
-          </li>
+            <span>{task.content}</span>
+            <span>{task.date}</span>
+            <span>{task.priority}</span>
+            <span>{task.category}</span>
+            <ButtonDelete
+              active={task.active}
+              onClick={() => deleteTask(task.id)}
+            >
+              <span>✖</span>
+            </ButtonDelete>
+          </ListGroupItem>
         );
       })}
-    </ul>
+    </ListGroup>
   );
 };
 export default List;

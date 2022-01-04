@@ -1,5 +1,15 @@
 import React from "react";
 
+// Styled Components
+import {
+  NavItem,
+  NavLink,
+  NavSlider,
+  NavTabs,
+  SliderActive,
+  StyledTab,
+} from "./styles/StyledTab";
+
 const Tab = ({ filter, setFilter, tasks, setTasksToShow }) => {
   const showActiveTasks = () => {
     const activeTasks = tasks.filter((task) => task.active === true);
@@ -17,35 +27,34 @@ const Tab = ({ filter, setFilter, tasks, setTasksToShow }) => {
     setFilter("ALL");
   };
   return (
-    <div className="mb-3">
-      <ul className="nav nav-tabs">
-        <li className="nav-item">
-          <button
-            className={"nav-link " + (filter === "ALL" && "active")}
-            aria-current="page"
-            onClick={showAllTasks}
-          >
+    <StyledTab>
+      <NavTabs>
+        <NavItem>
+          <NavLink active={filter === "ALL" && true} onClick={showAllTasks}>
             All
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={"nav-link " + (filter === "ACTIVE" && "active")}
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            active={filter === "ACTIVE" && true}
             onClick={showActiveTasks}
           >
             Active
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={"nav-link " + (filter === "COMPLETED" && "active")}
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            active={filter === "COMPLETED" && true}
             onClick={showCompletedTasks}
           >
             Completed
-          </button>
-        </li>
-      </ul>
-    </div>
+          </NavLink>
+        </NavItem>
+      </NavTabs>
+      <NavSlider>
+        <SliderActive typeOfCategory={filter} />
+      </NavSlider>
+    </StyledTab>
   );
 };
 

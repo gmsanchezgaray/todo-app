@@ -5,7 +5,7 @@ import List from "./components/List";
 import Tab from "./components/Tab";
 
 // Styled Components
-import GlobalStyles from "./components/styles/Global";
+import { GlobalStyles } from "./components/styles/Global";
 import { Container } from "./components/styles/Container.styled";
 
 function App() {
@@ -32,29 +32,26 @@ function App() {
     <>
       <GlobalStyles />
       <Container>
-        <h2 className="text-center">#todoApp</h2>
-        <div className="row justify-content-center text-center">
-          <Form
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            tasks={tasks}
-            setTasks={setTasks}
-          />
-          <Tab
-            filter={filter}
-            setFilter={setFilter}
-            tasks={tasks}
-            setTasksToShow={setTasksToShow}
-          />
-          {tasks.length === 0 && <p>Esta vacia esta wea</p>}
-          <List
-            tasks={tasks}
-            tasksToShow={tasksToShow}
-            filter={filter}
-            setTasksToShow={setTasksToShow}
-            setTasks={setTasks}
-          />
-        </div>
+        {/* <Form
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          tasks={tasks}
+          setTasks={setTasks}
+        /> */}
+        <Tab
+          filter={filter}
+          setFilter={setFilter}
+          tasks={tasks}
+          setTasksToShow={setTasksToShow}
+        />
+        {tasks.length === 0 && <p>Esta vacia esta wea</p>}
+        <List
+          tasks={tasks}
+          tasksToShow={tasksToShow}
+          filter={filter}
+          setTasksToShow={setTasksToShow}
+          setTasks={setTasks}
+        />
       </Container>
     </>
   );
