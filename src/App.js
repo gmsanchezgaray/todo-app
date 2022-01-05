@@ -6,7 +6,9 @@ import Tab from "./components/Tab";
 
 // Styled Components
 import { GlobalStyles } from "./components/styles/Global";
-import { Container } from "./components/styles/Container.styled";
+import { Container } from "./components/styles/StyledContainer";
+import { StyledButtonPlus } from "./components/styles/StyledButtonPlus";
+import { BackgroundModal } from "./components/styles/StyledForm";
 
 function App() {
   const getLocalData = () => {
@@ -23,21 +25,31 @@ function App() {
   const [tasksToShow, setTasksToShow] = useState([]);
   const [inputValue, setInputValue] = useState({});
   const [filter, setFilter] = useState("ALL");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  const showForm = () => {
+    setShowModal(!showModal);
+  };
   return (
     <>
       <GlobalStyles />
+      <BackgroundModal showModal={showModal} />
+
       <Container>
-        {/* <Form
-          inputValue={inputValue}
-          setInputValue={setInputValue}
-          tasks={tasks}
-          setTasks={setTasks}
-        /> */}
+        {showModal ? (
+          <Form
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            tasks={tasks}
+            setTasks={setTasks}
+            showModal={showModal}
+            setShowModal={setShowModal}
+          />
+        ) : null}
         <Tab
           filter={filter}
           setFilter={setFilter}
@@ -52,6 +64,7 @@ function App() {
           setTasksToShow={setTasksToShow}
           setTasks={setTasks}
         />
+        <StyledButtonPlus onClick={showForm}>+</StyledButtonPlus>
       </Container>
     </>
   );

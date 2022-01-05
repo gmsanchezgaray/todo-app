@@ -16,6 +16,7 @@ export const GlobalStyles = createGlobalStyle`
         align-items: center;
         margin: 0;
         min-height: 100vh;
+        overflow: hidden;
         background: linear-gradient(125.42deg, #CCD3EE -6.01%, #605CFF 109.94%);
     }
 

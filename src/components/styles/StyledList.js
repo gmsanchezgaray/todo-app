@@ -15,11 +15,10 @@ export const ListHeader = styled.li`
   padding: 12px 0px;
 `;
 
-export const ListGroupItem = styled.li`
+export const ListGroupContainer = styled.li`
   position: relative;
   display: flex;
   justify-content: space-around;
-  padding: 16px 0px;
   border-top: 1px solid #eee;
   color: ${({ active }) => (active ? "#7C7C7C" : "#BFBDF4")};
   cursor: pointer;
@@ -46,13 +45,30 @@ export const ListGroupItem = styled.li`
   }
 `;
 
+export const ListGroupItem = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 85%;
+  padding: 16px 0px;
+
+  & span {
+    display: inline-block;
+    width: calc(100% / 5);
+    text-align: center;
+
+    &:nth-child(1) {
+      text-align: left;
+    }
+  }
+`;
+
 export const InputRadio = styled.div`
   position: absolute;
-  top: 30%;
+  top: 34%;
   left: 1.5%;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   background: linear-gradient(
         ${({ active }) =>
           active ? "white, white" : "180deg, #3943e9 -5.32%, #949efc 112.77%"}
@@ -86,5 +102,3 @@ export const ButtonDelete = styled.button`
     color: #fff;
   }
 `;
-
-// listHeader // list-group-item // label-active

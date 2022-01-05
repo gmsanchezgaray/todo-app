@@ -5,6 +5,7 @@ import {
   ButtonDelete,
   InputRadio,
   ListGroup,
+  ListGroupContainer,
   ListGroupItem,
   ListHeader,
 } from "./styles/StyledList";
@@ -41,29 +42,26 @@ const List = ({ tasks, setTasksToShow, tasksToShow, filter, setTasks }) => {
       <ListHeader>
         <span>Description</span>
         <span>Deadline</span>
-        <span>Category</span>
         <span>Priority</span>
+        <span>Category</span>
       </ListHeader>
       {tasksToShow.map((task, index) => {
         return (
-          <ListGroupItem
-            active={task.active}
-            key={task.id}
-            onClick={() => completeTask(index)}
-          >
+          <ListGroupContainer active={task.active} key={task.id}>
             <InputRadio active={task.active} />
-
-            <span>{task.content}</span>
-            <span>{task.date}</span>
-            <span>{task.priority}</span>
-            <span>{task.category}</span>
+            <ListGroupItem onClick={() => completeTask(index)}>
+              <span>{task.content}</span>
+              <span>{task.date}</span>
+              <span>{task.priority}</span>
+              <span>{task.category}</span>
+            </ListGroupItem>
             <ButtonDelete
               active={task.active}
               onClick={() => deleteTask(task.id)}
             >
               <span>✖</span>
             </ButtonDelete>
-          </ListGroupItem>
+          </ListGroupContainer>
         );
       })}
     </ListGroup>
