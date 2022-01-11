@@ -10,7 +10,7 @@ import {
   InputGroup,
   Select,
   StyledForm,
-} from "./styles/StyledForm";
+} from "./styles/Form.elements";
 
 const Form = ({
   inputValue,

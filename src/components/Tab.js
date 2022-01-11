@@ -8,7 +8,7 @@ import {
   NavTabs,
   SliderActive,
   StyledTab,
-} from "./styles/StyledTab";
+} from "./styles/Tab.elements";
 
 const Tab = ({ filter, setFilter, tasks, setTasksToShow }) => {
   const showActiveTasks = () => {

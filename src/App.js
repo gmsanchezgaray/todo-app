@@ -6,9 +6,9 @@ import Tab from "./components/Tab";
 
 // Styled Components
 import { GlobalStyles } from "./components/styles/Global";
-import { Container } from "./components/styles/StyledContainer";
-import { StyledButtonPlus } from "./components/styles/StyledButtonPlus";
-import { BackgroundModal } from "./components/styles/StyledForm";
+import { Container } from "./components/styles/Global";
+import { StyledButtonPlus } from "./components/styles/Global";
+import { BackgroundModal } from "./components/styles/Form.elements";
 
 function App() {
   const getLocalData = () => {

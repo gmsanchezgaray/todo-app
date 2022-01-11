@@ -8,7 +8,7 @@ import {
   ListGroupContainer,
   ListGroupItem,
   ListHeader,
-} from "./styles/StyledList";
+} from "./styles/List.elements";
 
 const List = ({ tasks, setTasksToShow, tasksToShow, filter, setTasks }) => {
   const completeTask = (indexArray) => {
