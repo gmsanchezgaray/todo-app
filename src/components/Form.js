@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { selectPriorityArray, selectTypeArray } from "../data/optionsArray";
 
 //Styled Components
@@ -8,6 +10,7 @@ import {
   HeaderForm,
   Input,
   InputGroup,
+  MessageBox,
   Select,
   StyledForm,
 } from "./styles/Form.elements";
@@ -20,6 +23,8 @@ const Form = ({
   showModal,
   setShowModal,
 }) => {
+  const [haveError, setHaveError] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const newId = new Date().getTime();
@@ -28,6 +33,8 @@ const Form = ({
       setTasks([...tasks, { id: newId, ...inputValue, active: true }]);
       resetValues();
       setShowModal(!showModal);
+    } else {
+      setHaveError(true);
     }
   };
 
@@ -102,6 +109,16 @@ const Form = ({
           </Select>
         </InputGroup>
 
+        <MessageBox error={haveError}>
+          <h5>Please complete the following fields:</h5>
+
+          <ul>
+            <li>Description</li>
+            <li>Deadline</li>
+            <li>Priority</li>
+            <li>Category</li>
+          </ul>
+        </MessageBox>
         <FormFooter>
           <Button
             onClick={() => {
