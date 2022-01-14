@@ -9,6 +9,7 @@ import { GlobalStyles } from "./components/styles/Global";
 import { Container } from "./components/styles/Global";
 import { StyledButtonPlus } from "./components/styles/Global";
 import { BackgroundModal } from "./components/styles/Form.elements";
+import Snackbar from "./components/Snackbar";
 
 function App() {
   const getLocalData = () => {
@@ -56,14 +57,17 @@ function App() {
           tasks={tasks}
           setTasksToShow={setTasksToShow}
         />
-        {tasks.length === 0 && <p>Esta vacia esta wea</p>}
-        <List
-          tasks={tasks}
-          tasksToShow={tasksToShow}
-          filter={filter}
-          setTasksToShow={setTasksToShow}
-          setTasks={setTasks}
-        />
+        {tasks.length === 0 ? (
+          <Snackbar showForm={showForm} />
+        ) : (
+          <List
+            tasks={tasks}
+            tasksToShow={tasksToShow}
+            filter={filter}
+            setTasksToShow={setTasksToShow}
+            setTasks={setTasks}
+          />
+        )}
         <StyledButtonPlus onClick={showForm}>+</StyledButtonPlus>
       </Container>
     </>
