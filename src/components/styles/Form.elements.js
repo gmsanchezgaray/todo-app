@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledForm = styled.form`
   position: absolute;
   top: 10%;
-  left: 0;
+  left: calc(50% - 45vmin);
   width: 90vmin;
   z-index: ${({ showModal }) => (showModal ? "20" : "-1")};
   border-radius: 4px;
@@ -56,6 +56,8 @@ export const FormBody = styled.div`
   background: #f8f8f8;
   padding-top: 1rem;
   border-radius: 0px 0px 4px 4px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 
   & label {
     margin-bottom: 0.5rem;
@@ -68,13 +70,27 @@ export const FormBody = styled.div`
 
 export const InputGroup = styled.div`
   display: inline-block;
-  width: ${({ big }) => (big ? "100%" : "calc(100% / 3)")};
-  padding: 8px 12px;
+  &:nth-child(1) {
+    grid-column: 1/4;
+  }
+  height: 84px;
+  padding: 2px 12px;
+
+  //Helper text
+  & span {
+    height: 16px;
+    display: block;
+    visibility: ${({ hasError }) => (hasError ? "visible" : "hidden")};
+    color: #cc2104;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+  }
 `;
 
 export const Input = styled.input`
   display: block;
   width: 100%;
+  min-height: 40px;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -82,7 +98,7 @@ export const Input = styled.input`
   color: #212529;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid ${({ hasError }) => (hasError ? "#CC2104" : "#ced4da")};
   border-radius: 0.25rem;
 
   &:focus {
@@ -100,8 +116,10 @@ export const Select = styled.select`
   color: #212529;
   background-color: #fff;
   width: 100%;
+  min-height: 40px;
+
   padding: 0.475rem 0.75rem;
-  border: 1px solid #ced4da;
+  border: 1px solid ${({ hasError }) => (hasError ? "#CC2104" : "#ced4da")};
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
@@ -116,6 +134,7 @@ export const Select = styled.select`
 export const FormFooter = styled.div`
   padding: 0.5rem 1rem;
   margin-top: 1rem;
+  grid-column: 1/4;
 
   background-color: rgba(0, 0, 0, 0.03);
   border-top: 1px solid rgba(0, 0, 0, 0.125);
