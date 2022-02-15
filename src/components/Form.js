@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { selectPriorityArray, selectTypeArray } from "../data/optionsArray";
+import Alert from "./Alert";
 
 //Styled Components
 import {
@@ -10,7 +11,6 @@ import {
   HeaderForm,
   Input,
   InputGroup,
-  MessageBox,
   Select,
   StyledForm,
 } from "./styles/Form.elements";
@@ -24,22 +24,46 @@ const Form = ({
   setShowModal,
 }) => {
   const [haveError, setHaveError] = useState(false);
+  const [errorsToShow, setErrorsToShow] = useState([]);
+
+  let today = new Date().toISOString().slice(0, 10);
+
+  const validate = () => {
+    let arrayErrors = [];
+    if (inputValue.content.length === 0) {
+      arrayErrors.push("Description");
+    }
+    if (inputValue.date === today) {
+      arrayErrors.push("Deadline");
+    }
+    if (inputValue.category === "0") {
+      arrayErrors.push("Category");
+    }
+    if (inputValue.priority === "0") {
+      arrayErrors.push("Priority");
+    }
+    if (arrayErrors.length !== 0) {
+      setErrorsToShow(arrayErrors);
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newId = new Date().getTime();
 
-    if (inputValue.content.length > 0) {
+    if (validate() === true) {
       setTasks([...tasks, { id: newId, ...inputValue, active: true }]);
       resetValues();
       setShowModal(!showModal);
+      setErrorsToShow([]);
     } else {
       setHaveError(true);
     }
   };
 
   const resetValues = () => {
-    let today = new Date().toISOString().slice(0, 10);
     setInputValue({ content: "", category: "0", priority: "0", date: today });
   };
 
@@ -73,6 +97,7 @@ const Form = ({
             type="text"
             name="content"
             placeholder="Insert a task"
+            maxLength={25}
           />
         </InputGroup>
         <InputGroup>
@@ -108,17 +133,7 @@ const Form = ({
             })}
           </Select>
         </InputGroup>
-
-        <MessageBox error={haveError}>
-          <h5>Please complete the following fields:</h5>
-
-          <ul>
-            <li>Description</li>
-            <li>Deadline</li>
-            <li>Priority</li>
-            <li>Category</li>
-          </ul>
-        </MessageBox>
+        <Alert haveError={haveError} errorsToShow={errorsToShow} />
         <FormFooter>
           <Button
             onClick={() => {

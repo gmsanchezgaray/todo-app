@@ -11,8 +11,11 @@ export const ListGroup = styled.ul`
 export const ListHeader = styled.li`
   color: #161618;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 12px 0px;
+  & span:nth-child(1) {
+    width: 220px;
+  }
 `;
 
 export const ListGroupContainer = styled.li`
@@ -57,7 +60,11 @@ export const ListGroupItem = styled.div`
     text-align: center;
 
     &:nth-child(1) {
+      width: 250px;
       text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 `;

@@ -22,9 +22,16 @@ function App() {
     }
   };
 
+  let today = new Date().toISOString().slice(0, 10);
+
   const [tasks, setTasks] = useState(getLocalData);
   const [tasksToShow, setTasksToShow] = useState([]);
-  const [inputValue, setInputValue] = useState({});
+  const [inputValue, setInputValue] = useState({
+    content: "",
+    category: "0",
+    priority: "0",
+    date: today,
+  });
   const [filter, setFilter] = useState("ALL");
   const [showModal, setShowModal] = useState(false);
 
