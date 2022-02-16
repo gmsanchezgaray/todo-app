@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 // Styled Components
 import {
+  Badge,
   ButtonDelete,
   InputRadio,
   ListGroup,
@@ -9,6 +10,9 @@ import {
   ListGroupItem,
   ListHeader,
 } from "./styles/List.elements";
+
+import { ReactComponent as TrashIcon } from "../assets/Trash-icon.svg";
+import CategoryGadget from "./CategoryGadget";
 
 const List = ({ tasks, setTasksToShow, tasksToShow, filter, setTasks }) => {
   const completeTask = (indexArray) => {
@@ -33,6 +37,13 @@ const List = ({ tasks, setTasksToShow, tasksToShow, filter, setTasks }) => {
       arrayTasks = tasks;
   }
 
+  const priorities = {
+    1: "Urgent",
+    2: "Important",
+    3: "Normal",
+    4: "For later",
+  };
+
   useEffect(() => {
     setTasksToShow(arrayTasks);
   }, [tasks, filter]);
@@ -47,19 +58,26 @@ const List = ({ tasks, setTasksToShow, tasksToShow, filter, setTasks }) => {
       </ListHeader>
       {tasksToShow.map((task, index) => {
         return (
-          <ListGroupContainer active={task.active} key={task.id}>
+          <ListGroupContainer key={task.id}>
             <InputRadio active={task.active} />
-            <ListGroupItem onClick={() => completeTask(index)}>
+            <ListGroupItem
+              active={task.active}
+              onClick={() => completeTask(index)}
+            >
               <span>{task.content}</span>
               <span>{task.date}</span>
-              <span>{task.priority}</span>
-              <span>{task.category}</span>
+              <Badge color={task.priority}>{priorities[task.priority]}</Badge>
+              <span>
+                <CategoryGadget categoryIndex={task.category} />
+              </span>
             </ListGroupItem>
             <ButtonDelete
               active={task.active}
               onClick={() => deleteTask(task.id)}
             >
-              <span>✖</span>
+              <span>
+                <TrashIcon />
+              </span>
             </ButtonDelete>
           </ListGroupContainer>
         );

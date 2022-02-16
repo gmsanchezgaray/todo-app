@@ -22,7 +22,7 @@ function App() {
     }
   };
 
-  let today = new Date().toISOString().slice(0, 10);
+  // let today = new Date().toISOString().slice(0, 10);
 
   const [tasks, setTasks] = useState(getLocalData);
   const [tasksToShow, setTasksToShow] = useState([]);
@@ -30,7 +30,7 @@ function App() {
     content: "",
     category: "0",
     priority: "0",
-    date: today,
+    date: "",
   });
   const [filter, setFilter] = useState("ALL");
   const [showModal, setShowModal] = useState(false);

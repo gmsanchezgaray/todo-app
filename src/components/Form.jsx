@@ -35,7 +35,7 @@ const Form = ({
     if (inputValue.content.length === 0) {
       objectErrors.descriptionError = "Description is required.";
     }
-    if (inputValue.date === today) {
+    if (inputValue.date === "") {
       objectErrors.deadlineError = "Deadline is required.";
     } else if (inputValue.date < today) {
       objectErrors.deadlineError = "Deadline is invalid.";
@@ -69,13 +69,22 @@ const Form = ({
   };
 
   const resetValues = () => {
-    setInputValue({ content: "", category: "0", priority: "0", date: today });
+    setInputValue({ content: "", category: "0", priority: "0", date: "" });
   };
 
   const handleInput = (event) => {
     const newValue = event.target.value;
     if (event.target.name === "content") {
       errorsToShow.descriptionError = "";
+    }
+    if (event.target.name === "category") {
+      errorsToShow.categoryError = "";
+    }
+    if (event.target.name === "priority") {
+      errorsToShow.priorityError = "";
+    }
+    if (event.target.name === "date") {
+      errorsToShow.deadlineError = "";
     }
     setInputValue({ ...inputValue, [event.target.name]: newValue });
   };
