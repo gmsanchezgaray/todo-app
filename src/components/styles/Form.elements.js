@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { device } from "./device";
 
 export const StyledForm = styled.form`
   position: absolute;
   top: 10%;
   left: calc(50% - 45vmin);
   width: 90vmin;
-  z-index: ${({ showModal }) => (showModal ? "20" : "-1")};
+  z-index: ${({ showModal }) => (showModal ? "105" : "-1")};
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 `;
@@ -19,7 +20,7 @@ export const BackgroundModal = styled.div`
   background-color: #000;
   opacity: ${({ showModal }) => (showModal ? "0.4" : "0")};
   transition: 0.5s;
-  z-index: ${({ showModal }) => (showModal ? "5" : "-1")};
+  z-index: ${({ showModal }) => (showModal ? "100" : "-1")};
 `;
 
 export const HeaderForm = styled.div`
@@ -79,11 +80,16 @@ export const InputGroup = styled.div`
   //Helper text
   & span {
     height: 16px;
+    width: 9rem;
     display: block;
     visibility: ${({ hasError }) => (hasError ? "visible" : "hidden")};
     color: #cc2104;
     font-size: 0.75rem;
     margin-left: 0.5rem;
+    white-space: nowrap;
+  }
+  @media ${device.tablet} {
+    grid-column: 1/4;
   }
 `;
 

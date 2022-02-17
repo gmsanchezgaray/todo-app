@@ -1,22 +1,85 @@
 import styled from "styled-components";
+import { device } from "./device";
+
+export const ListWrapper = styled.div`
+  position: relative;
+  background-color: #efefef;
+  width: 100vmin;
+  height: calc(100% + 2.5rem);
+  border-radius: 8px;
+  max-width: 100%;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #e5e5e5;
+    border-radius: 4px 0 4px 0;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #8d97fb;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #505aee;
+  }
+
+  @media ${device.mobileM} {
+    width: 100%;
+    min-width: 25.5rem;
+    margin: 0 auto;
+  }
+  @media ${device.desktop} {
+    width: 100%;
+  }
+`;
 
 export const ListGroup = styled.ul`
   list-style: none;
   margin-top: 1.25rem;
   width: 100%;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #d9d9d9;
   overflow: hidden;
 `;
 
 export const ListHeader = styled.li`
-  color: #161618;
+  color: #9d9d9d;
   display: flex;
+  font-size: 0.9rem;
   justify-content: space-evenly;
   padding: 12px 0px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #d9d9d9;
+  text-transform: capitalize;
 
   & span:nth-child(1) {
-    width: 220px;
+    width: 13.75rem;
+  }
+
+  @media ${device.mobileM} {
+    & span {
+      &:nth-child(1) {
+        width: 11rem;
+      }
+      &:nth-child(2) {
+        display: none;
+      }
+      &:nth-child(4) {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  @media ${device.desktop} {
+    & span {
+      &:nth-child(3) {
+        margin-right: 1rem;
+      }
+      &:nth-child(4) {
+        margin-right: 2rem;
+      }
+    }
   }
 `;
 
@@ -24,13 +87,11 @@ export const ListGroupContainer = styled.li`
   position: relative;
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid #eee;
-  /* text-decoration: ${({ active }) => (active ? "none" : "line-through")};
-  color: ${({ active }) => (active ? "#7C7C7C" : "#BFBDF4")}; */
-
+  border-top: 1px solid #d9d9d9;
   cursor: pointer;
   transition: 0.3s;
   overflow: hidden;
+  background-color: ${({ active }) => (active ? "transparent" : "#e1e1e1")};
 
   @keyframes opacity {
     0% {
@@ -47,7 +108,8 @@ export const ListGroupContainer = styled.li`
 
   &:hover {
     z-index: 5;
-    background-color: #fff;
+    background-color: ${({ active }) => (active ? "#fff" : "#d9d9d9")};
+
     transform: translateY(-1px);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
       rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
@@ -65,7 +127,7 @@ export const ListGroupItem = styled.div`
     display: inline-block;
     width: calc(100% / 5);
     text-align: center;
-    color: ${({ active }) => (active ? "#7C7C7C" : "#BFBDF4")};
+    color: ${({ active }) => (active ? "#7C7C7C" : "#8d97fb")};
     text-decoration: ${({ active }) => (active ? "none" : "line-through")};
 
     &:nth-child(1) {
@@ -75,6 +137,11 @@ export const ListGroupItem = styled.div`
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    &:nth-child(2) {
+      white-space: nowrap;
+      width: auto;
+      display: block;
+    }
     &:nth-child(3) {
       width: auto;
       text-decoration: none;
@@ -83,6 +150,27 @@ export const ListGroupItem = styled.div`
     &:nth-child(4) {
       text-decoration: none;
       color: #7c7c7c;
+    }
+  }
+
+  @media ${device.mobileM} {
+    & span {
+      &:nth-child(1) {
+        width: 16rem;
+      }
+      &:nth-child(2) {
+        display: none;
+      }
+      &:nth-child(4) {
+        margin-right: 1rem;
+      }
+    }
+  }
+  @media ${device.desktop} {
+    & span {
+      &:nth-child(3) {
+        margin-left: 1rem;
+      }
     }
   }
 `;
@@ -96,6 +184,8 @@ const handleColorType = (color) => {
       return { bg: "#fc6e31", bxSh: "inset 10px 10px 16px #faa07a" };
     case "4":
       return { bg: "#26aa82", bxSh: "inset 10px 10px 16px #62bfa9" };
+    default:
+      return { bg: "#dc2551", bxSh: "inset 10px 10px 16px #eb6084" };
   }
 };
 
@@ -106,6 +196,10 @@ export const Badge = styled.span`
   background-color: ${({ color }) => handleColorType(color).bg};
   box-shadow: ${({ color }) => handleColorType(color).bxSh};
   font-size: 0.9rem;
+  @media ${device.mobileM} {
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 export const InputRadio = styled.div`

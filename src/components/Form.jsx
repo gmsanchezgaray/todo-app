@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import { selectPriorityArray, selectTypeArray } from "../data/optionsArray";
-
 //Styled Components
 import {
   Button,
@@ -14,6 +12,11 @@ import {
   StyledForm,
 } from "./styles/Form.elements";
 
+// Arrays and functions
+import { selectPriorityArray, selectTypeArray } from "../data/arrays";
+import { arrayNameInput } from "../data/arrays.js";
+import { validate } from "../utils/functions";
+
 const Form = ({
   inputValue,
   setInputValue,
@@ -22,73 +25,43 @@ const Form = ({
   showModal,
   setShowModal,
 }) => {
-  const [haveError, setHaveError] = useState(false);
   const [errorsToShow, setErrorsToShow] = useState({});
-
-  let today = new Date().toISOString().slice(0, 10);
-  const isEmpty = (obj) => {
-    return Object.keys(obj).length === 0;
-  };
-
-  const validate = () => {
-    let objectErrors = {};
-    if (inputValue.content.length === 0) {
-      objectErrors.descriptionError = "Description is required.";
-    }
-    if (inputValue.date === "") {
-      objectErrors.deadlineError = "Deadline is required.";
-    } else if (inputValue.date < today) {
-      objectErrors.deadlineError = "Deadline is invalid.";
-    }
-    if (inputValue.category === "0") {
-      objectErrors.categoryError = "Category is required.";
-    }
-    if (inputValue.priority === "0") {
-      objectErrors.priorityError = "Priority is required.";
-    }
-    console.log(objectErrors);
-    if (!isEmpty(objectErrors)) {
-      setErrorsToShow(objectErrors);
-      return false;
-    }
-    return true;
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newId = new Date().getTime();
-    console.log(validate());
-    if (validate() === true) {
+    //if the validation is OK, add the new task and reset all values.
+    if (validate(inputValue, setErrorsToShow)) {
       setTasks([...tasks, { id: newId, ...inputValue, active: true }]);
       resetValues();
       setShowModal(!showModal);
-      setErrorsToShow([]);
-    } else {
-      setHaveError(true);
+      setErrorsToShow({});
     }
   };
 
-  const resetValues = () => {
-    setInputValue({ content: "", category: "0", priority: "0", date: "" });
-  };
+  const resetValues = () =>
+    setInputValue({
+      description: "",
+      category: "0",
+      priority: "0",
+      deadline: "",
+    });
 
   const handleInput = (event) => {
     const newValue = event.target.value;
-    if (event.target.name === "content") {
-      errorsToShow.descriptionError = "";
-    }
-    if (event.target.name === "category") {
-      errorsToShow.categoryError = "";
-    }
-    if (event.target.name === "priority") {
-      errorsToShow.priorityError = "";
-    }
-    if (event.target.name === "date") {
-      errorsToShow.deadlineError = "";
-    }
+
+    arrayNameInput.forEach((element) => {
+      if (event.target.name === element) {
+        let errorKey = `${element}Error`;
+        errorsToShow[errorKey] = "";
+      }
+    }); //Clear the label error when handled the respective component
     setInputValue({ ...inputValue, [event.target.name]: newValue });
   };
 
+  //Destructuring
+  const { descriptionError, deadlineError, priorityError, categoryError } =
+    errorsToShow;
   return (
     <StyledForm
       onSubmit={handleSubmit}
@@ -106,40 +79,34 @@ const Form = ({
         </button>
       </HeaderForm>
       <FormBody>
-        <InputGroup hasError={haveError && errorsToShow.descriptionError}>
+        <InputGroup hasError={descriptionError}>
           <label>Description</label>
           <Input
-            value={inputValue.content}
+            value={inputValue.description}
             onChange={handleInput}
             type="text"
-            name="content"
+            name="description"
             placeholder="Insert a task"
             maxLength={25}
-            hasError={haveError && errorsToShow.descriptionError}
+            hasError={descriptionError}
           />
-          <span>
-            {errorsToShow.descriptionError
-              ? errorsToShow.descriptionError
-              : null}
-          </span>
+          <span>{descriptionError ? descriptionError : null}</span>
         </InputGroup>
-        <InputGroup hasError={haveError && errorsToShow.deadlineError}>
+        <InputGroup hasError={deadlineError}>
           <label>Deadline</label>
           <Input
             type="date"
-            value={inputValue.date}
+            value={inputValue.deadline}
             onChange={handleInput}
-            name="date"
-            hasError={haveError && errorsToShow.deadlineError}
+            name="deadline"
+            hasError={deadlineError}
           />
-          <span>
-            {errorsToShow.deadlineError ? errorsToShow.deadlineError : null}
-          </span>
+          <span>{deadlineError ? deadlineError : null}</span>
         </InputGroup>
-        <InputGroup hasError={haveError && errorsToShow.priorityError}>
+        <InputGroup hasError={priorityError}>
           <label>Priority</label>
           <Select
-            hasError={haveError && errorsToShow.priorityError}
+            hasError={priorityError}
             onChange={handleInput}
             name="priority"
           >
@@ -151,14 +118,12 @@ const Form = ({
               );
             })}
           </Select>
-          <span>
-            {errorsToShow.priorityError ? errorsToShow.priorityError : null}
-          </span>
+          <span>{priorityError ? priorityError : null}</span>
         </InputGroup>
-        <InputGroup hasError={haveError && errorsToShow.categoryError}>
+        <InputGroup hasError={categoryError}>
           <label>Category</label>
           <Select
-            hasError={haveError && errorsToShow.categoryError}
+            hasError={categoryError}
             onChange={handleInput}
             name="category"
           >
@@ -170,9 +135,7 @@ const Form = ({
               );
             })}
           </Select>
-          <span>
-            {errorsToShow.categoryError ? errorsToShow.categoryError : null}
-          </span>
+          <span>{categoryError ? categoryError : null}</span>
         </InputGroup>
         <FormFooter>
           <Button
@@ -182,12 +145,7 @@ const Form = ({
           >
             Cancel
           </Button>
-          <Button
-            primary
-            onClick={handleSubmit}
-            className="btn btn-primary"
-            type="submit"
-          >
+          <Button primary onClick={handleSubmit} type="submit">
             Add task
           </Button>
         </FormFooter>

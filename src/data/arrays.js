@@ -17,3 +17,6 @@ export const selectTypeArray = [
   { value: "Shopping" },
   { value: "Other" },
 ];
+export let arrayNameInput = ["description", "deadline", "priority", "category"];
+
+export let arrayStatusTasks = ["All", "Active", "Completed"];

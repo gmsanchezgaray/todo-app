@@ -1,5 +1,3 @@
-import React from "react";
-
 // Styled Components
 import {
   NavItem,
@@ -9,47 +7,32 @@ import {
   SliderActive,
   StyledTab,
 } from "./styles/Tab.elements";
+//Array for Header Info
+import { arrayStatusTasks } from "../data/arrays";
 
-const Tab = ({ filter, setFilter, tasks, setTasksToShow }) => {
-  const showActiveTasks = () => {
-    const activeTasks = tasks.filter((task) => task.active === true);
-    setTasksToShow(activeTasks);
-    setFilter("ACTIVE");
-  };
-
-  const showCompletedTasks = () => {
-    const completedTasks = tasks.filter((task) => task.active === false);
-    setTasksToShow(completedTasks);
-    setFilter("COMPLETED");
-  };
-
-  const showAllTasks = () => {
-    setFilter("ALL");
+const Tab = ({ filter, setFilter }) => {
+  //Show tasks by filter
+  const showSelectedTasks = (event) => {
+    setFilter(event.target.name.toUpperCase());
   };
   return (
     <StyledTab>
       <NavTabs>
-        <NavItem>
-          <NavLink active={filter === "ALL" && true} onClick={showAllTasks}>
-            All
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            active={filter === "ACTIVE" && true}
-            onClick={showActiveTasks}
-          >
-            Active
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            active={filter === "COMPLETED" && true}
-            onClick={showCompletedTasks}
-          >
-            Completed
-          </NavLink>
-        </NavItem>
+        <>
+          {arrayStatusTasks.map((item, index) => {
+            return (
+              <NavItem key={index}>
+                <NavLink
+                  name={item}
+                  active={filter === item.toUpperCase()}
+                  onClick={showSelectedTasks}
+                >
+                  {item}
+                </NavLink>
+              </NavItem>
+            );
+          })}
+        </>
       </NavTabs>
       <NavSlider>
         <SliderActive typeOfCategory={filter} />

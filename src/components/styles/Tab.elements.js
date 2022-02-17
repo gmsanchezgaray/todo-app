@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "./device";
 
 export const StyledTab = styled.div`
   position: absolute;
@@ -7,6 +8,7 @@ export const StyledTab = styled.div`
   background-color: #ffffff;
   width: 100%;
   border-radius: 8px 8px 0px 0px;
+  z-index: 5;
 `;
 
 export const NavTabs = styled.ul`
@@ -14,6 +16,10 @@ export const NavTabs = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media ${device.mobileM} {
+    justify-content: space-around;
+  }
 `;
 
 export const NavItem = styled.li`
@@ -99,23 +105,54 @@ export const NavSlider = styled.div`
 const handlePositionBar = (typeOfCategory) => {
   switch (typeOfCategory) {
     case "ACTIVE":
-      return "40%";
+      return "calc(50% - 4rem)";
     case "COMPLETED":
-      return "60%";
+      return "calc(69% - 6.5rem)";
     default:
-      return "26%";
+      return "calc(37% - 2.5rem)";
+  }
+};
+
+const handlePositionBarMobile = (typeOfCategory) => {
+  switch (typeOfCategory) {
+    case "ACTIVE":
+      return "calc(50% - 2.9rem)";
+    case "COMPLETED":
+      return "calc(100% - 6.3rem)";
+    default:
+      return "calc(100% / 12 )";
+  }
+};
+
+const handlePositionBarTablet = (typeOfCategory) => {
+  switch (typeOfCategory) {
+    case "ACTIVE":
+      return "calc(50% - 3.5rem)";
+    case "COMPLETED":
+      return "calc(69% - 4.5rem)";
+    default:
+      return "calc(37% - 3.5rem)";
   }
 };
 
 export const SliderActive = styled.div`
   position: absolute;
   top: 0;
-  margin-left: ${({ typeOfCategory }) => handlePositionBar(typeOfCategory)};
-  width: 10%;
+  left: ${({ typeOfCategory }) => handlePositionBar(typeOfCategory)};
+  width: 4.063rem;
   height: 3px;
   background: #605cff;
   border-radius: 3px;
   transition: all 500ms ease-in-out;
   -webkit-transition: all 500ms ease-in-out;
   -moz-transition: all 500ms ease-in-out;
+
+  @media ${device.mobileM} {
+    width: 2.5rem;
+    left: ${({ typeOfCategory }) => handlePositionBarMobile(typeOfCategory)};
+  }
+  @media ${device.tablet} {
+    width: 3.5rem;
+    left: ${({ typeOfCategory }) => handlePositionBarTablet(typeOfCategory)};
+  }
 `;

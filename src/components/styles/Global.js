@@ -1,7 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { device } from "./device";
 
 export const GlobalStyles = createGlobalStyle`
-     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
     *{
         box-sizing: border-box;
@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     
     body{
-        font-family: 'Roboto', sans-serif;
+      font-family: 'Poppins';
         display: flex;
         justify-content: center;
         align-items: center;
@@ -28,7 +28,6 @@ export const GlobalStyles = createGlobalStyle`
 
 export const Container = styled.div`
   position: relative;
-  background-color: #f6f7ff;
   width: 100vmin;
   height: 33.5rem;
   border-radius: 8px;
@@ -36,6 +35,18 @@ export const Container = styled.div`
   padding: 2.5rem 0px;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
     rgba(17, 17, 26, 0.05) 0px 8px 32px;
+
+  @media ${device.mobileM} {
+    width: 100%;
+  }
+
+  @media ${device.tablet} {
+    width: 45rem;
+  }
+
+  @media ${device.desktop} {
+    width: 55rem;
+  }
 `;
 
 export const StyledButtonPlus = styled.button`
@@ -52,6 +63,7 @@ export const StyledButtonPlus = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
+  z-index: 99;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;

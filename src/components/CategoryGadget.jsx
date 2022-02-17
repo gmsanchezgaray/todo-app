@@ -1,5 +1,7 @@
-import React from "react";
+// Styled Component
+import { IconCategory, WrapperCategory } from "./styles/CategoryGadget.element";
 
+// Assets
 import PersonalIcon from "../assets/Personal.svg";
 import WorkIcon from "../assets/Work.svg";
 import SchoolIcon from "../assets/School.svg";
@@ -8,7 +10,6 @@ import TravelIcon from "../assets/Travel.svg";
 import HealthIcon from "../assets/Health.svg";
 import ShoppingIcon from "../assets/Shopping.svg";
 import OtherIcon from "../assets/Other.svg";
-import { IconCategory, WrapperCategory } from "./styles/CategoryGadget.element";
 
 const CategoryGadget = ({ categoryIndex }) => {
   const categories = {
@@ -21,7 +22,6 @@ const CategoryGadget = ({ categoryIndex }) => {
     7: { name: "Shopping", icon: ShoppingIcon },
     8: { name: "Other", icon: OtherIcon },
   };
-
   return (
     <WrapperCategory>
       <IconCategory>
